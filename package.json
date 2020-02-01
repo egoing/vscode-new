@@ -6,9 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "create-insta-project": "cli.js"
+    "vscode-new": "cli.js"
   },
-  "author": "",
+  "author": "egoing",
   "license": "ISC",
   "dependencies": {
     "meow": "^6.0.0"
