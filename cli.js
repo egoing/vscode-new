@@ -5,7 +5,9 @@ var meow = require('meow');
 const os = require('os');
 const city = require('./city');
 const Conf = require('conf');
-const config = new Conf();
+const config = new Conf({
+    projectName:'vscode-new'
+});
 var list = config.get('vscode-new-list');
 
 const cli = meow(`
