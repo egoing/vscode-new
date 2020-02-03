@@ -53,18 +53,25 @@ function getDirName() {
     if (cli.flags.path === undefined) {
         basePath = global[tempDirectorySymbol];
     } else {
-        basePath = resolveHome(cli.flags.path);
+        var cleanPath = cli.flags.path.replace(/\/$/,'');
+        basePath = resolveHome(cleanPath);
     }
 
     var fileName = [];
     // ex cod-ing new test
-    if (cli.input[1] !== undefined) {
-        fileName = cli.input[1];
-    } else {
+    if (cli.input[0] === undefined){
         var m = new Date();
         var fileName = city[Math.floor(Math.random() * city.length)];
+    } else if(cli.input[0] === 'new'){
+        if(cli.input[1] === undefined){
+            var m = new Date();
+            var fileName = city[Math.floor(Math.random() * city.length)];
+        } else {
+            fileName = cli.input[1];
+        }
+    } else {
+        fileName = cli.input[0];
     }
-
     return basePath + '/' + fileName;
 }
 function getTempDir() {
@@ -127,7 +134,7 @@ if (cli.input[0] === "list") {
         project_run(list[Number(id)].path);
         rl.close();
     });
-} else if(cli.input[0] === undefined || cli.input[0] === "new" || cli.input[0] === "create" || cli.input[0] === "make"){
+} else {
     var newDirName = getDirName();
     if(!fs.existsSync(newDirName)){
         fs.mkdirSync(newDirName);
